@@ -4,7 +4,8 @@
  * @typedef {import("moleculer").Context} Context
  */
 
-const { Client,cacheExchange, fetchExchange } = require("@urql/core");
+const { Client, cacheExchange, fetchExchange } = require("@urql/core");
+const { cacheExchange: graphcache } = require('@urql/exchange-graphcache');
 const fetch = require('cross-fetch');
 
 /**
@@ -20,7 +21,6 @@ module.exports = {
 	 */
 	name: "gql",
 
-
 	_client: null,
 
 	/**
@@ -30,6 +30,7 @@ module.exports = {
 		gql: {
 			uri: null,
 			globalHeaders: null,
+			enableGraphcache: false
 		}
 	},
 
@@ -37,29 +38,30 @@ module.exports = {
 		query: {
 			/**
 			 * @param {Context} ctx
+			 * @returns {(Object|Error)} result or error
 			 */
 			async handler(ctx) {
 
-
-        const response =  await this._client.query(ctx.params.request)
+        const response =  await this._client.query(ctx.params.request);
 
 				if (response.error) {
-					throw new Error('bad')
+					throw new Error(response.error)
 				}
 
-        return response;
+        return response.data;
 			}
 		},
 		mutation: {
 			/**
 			 * @param {Context} ctx
+			 * @returns {(Object|Error)} result or error
 			 */
 			async handler(ctx) {
 
-        const response =  await this._client.mutation(ctx.params.request)
+        const response =  await this._client.mutation(ctx.params.request);
+
 				if (response.error) {
-					console.log('response: ', response.error)
-					throw new Error('bad')
+					throw new Error(response.error)
 				}
 
         return response.data;
@@ -74,7 +76,7 @@ module.exports = {
 
 		this._client = new Client({
       url: `${this.settings.gql.uri}`,
-      exchanges: [cacheExchange, fetchExchange],
+      exchanges: [this.settings.gql.enableGraphcache ? graphcache({}) : cacheExchange, fetchExchange],
       fetch,
 			fetchOptions: this.settings.gql.globalHeaders ? {
 					headers: {
