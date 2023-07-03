@@ -14,7 +14,7 @@ npm install --save moleculer-gql-client moleculer
 ```
 
 ## Settings
-`moleculer-gql` offers the following service settings:
+`moleculer-gql-client` offers the following service settings:
 ```
  settings: {
       gql: {
@@ -30,7 +30,7 @@ npm install --save moleculer-gql-client moleculer
 Call either the `query` or `mutation` action.  An example of the `query` action:
 ```
 const { ServiceBroker } = require("moleculer");
-const GQLService = require('../src/index')
+const GQLService = require("moleculer-graphql-client")
 
 // Create a ServiceBroker
 const broker = new ServiceBroker();
