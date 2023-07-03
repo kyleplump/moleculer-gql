@@ -10,7 +10,7 @@ A wrapper of the [URQL](https://formidable.com/open-source/urql/) client, provid
 
 ## Install
 ```
-npm i moleculer-gql moleculer-web
+npm install --save moleculer-gql moleculer
 ```
 
 ## Settings

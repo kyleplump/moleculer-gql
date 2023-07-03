@@ -1,11 +1,16 @@
 {
-  "name": "moleculer-urql",
-  "version": "0.0.1",
-  "description": "",
+  "name": "moleculer-gql",
+  "version": "1.0.0",
+  "description": "Graphql ",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "moleculer",
+    "microservices",
+    "graphql client"
+  ],
   "author": "Kyle Plump",
   "license": "ISC",
   "dependencies": {
