@@ -1,4 +1,4 @@
-# moleculer-gql
+# moleculer-gql-client
 
 A wrapper of the [URQL](https://formidable.com/open-source/urql/) client, providing a GraphQL integration for the [Moleculer Framework](https://moleculer.services/)
 
@@ -6,7 +6,7 @@ A wrapper of the [URQL](https://formidable.com/open-source/urql/) client, provid
 - Queries
 - Mutations
 - Custom Headers
-- Opt-in [Graphcache](https://formidable.com/open-source/urql/docs/graphcache/) support
+- Opt-in [Graphcache](https://formidable.com/open-source/urql/docs/graphcache/) support with optional custom [resolvers](https://formidable.com/open-source/urql/docs/graphcache/local-resolvers/)
 
 ## Install
 ```
@@ -22,6 +22,9 @@ npm install --save moleculer-gql-client moleculer
           globalHeaders: {
           },
           enableGraphcache: false,
+          graphcacheSettings: {
+            resolvers: {}
+          }
       }
     }
 ```

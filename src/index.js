@@ -30,7 +30,10 @@ module.exports = {
 		gql: {
 			uri: null,
 			globalHeaders: null,
-			enableGraphcache: false
+			enableGraphcache: false,
+			graphcacheSettings: {
+				resolvers: null
+			}
 		}
 	},
 
@@ -41,6 +44,8 @@ module.exports = {
 			 * @returns {(Object|Error)} result or error
 			 */
 			async handler(ctx) {
+
+				if(!ctx.params.request) throw new Error('"request" not present.')
 
         const response =  await this._client.query(ctx.params.request);
 
@@ -57,6 +62,8 @@ module.exports = {
 			 * @returns {(Object|Error)} result or error
 			 */
 			async handler(ctx) {
+
+				if(!ctx.params.request) throw new Error('"request" not present.')
 
         const response =  await this._client.mutation(ctx.params.request);
 
@@ -76,7 +83,7 @@ module.exports = {
 
 		this._client = new Client({
       url: `${this.settings.gql.uri}`,
-      exchanges: [this.settings.gql.enableGraphcache ? graphcache({}) : cacheExchange, fetchExchange],
+      exchanges: [this.settings.gql.enableGraphcache ? graphcache({ resolvers: this.settings.gql.graphcache.resolvers ? { ...this.settings.graphcacheSettings.resolvers } : null }) : cacheExchange, fetchExchange],
       fetch,
 			fetchOptions: this.settings.gql.globalHeaders ? {
 					headers: {
