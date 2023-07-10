@@ -1,6 +1,6 @@
 {
   "name": "moleculer-gql-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Mixin that allows Moleculer services to perform GraphQL requests",
   "main": "src/index.js",
   "scripts": {
